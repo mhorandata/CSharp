@@ -9,6 +9,7 @@ namespace EndTask
         static void Main()
         {
             //Between the quotation marks below add the first word from left to right of any task you want ended. Make sure to look at the Tasks properties for exact names.
+            //Note: Ending Tasks of tasks you are unfamiliar with can cause major issues. Only end task of task you are sure will be safe for your computer.
             string[] processNames = { "", "" };
 
             foreach (var name in processNames)
