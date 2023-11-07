@@ -1,0 +1,67 @@
+using System;
+using System.Diagnostics;
+using System.Collections.Generic;
+
+namespace EndTask
+{
+    class Program
+    {
+        static void Main()
+        {
+            //Between the quotation marks below add the first word from left to right of any task you want ended. Make sure to look at the Tasks properties for exact names.
+            string[] processNames = { "", "" };
+
+            foreach (var name in processNames)
+            {
+                Console.WriteLine($"Length of '{name}': {name.Length}");
+            }
+
+            var endedProcesses = EndProcessesByName(processNames);
+
+            Console.WriteLine("Tasks ended for specified processes.");
+            Console.WriteLine("List of ended tasks:");
+            foreach (var processName in endedProcesses)
+            {
+                Console.WriteLine(processName);
+            }
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+        }
+
+        static List<string> EndProcessesByName(string[] names)
+        {
+            var processes = Process.GetProcesses();
+            var endedProcesses = new List<string>();
+
+            foreach (var name in names)
+            {
+                var nameLength = name.Length;
+
+                foreach (var process in processes)
+                {
+                    if (process.ProcessName.Length >= nameLength)
+                    {
+                        var searchName = process.ProcessName.Substring(0, nameLength);
+                        Console.WriteLine($"Comparing '{name}' with process: {searchName} (Length: {nameLength}), Full process name: {process.ProcessName}");
+
+                        if (searchName.Equals(name, StringComparison.OrdinalIgnoreCase))
+                        {
+                            try
+                            {
+                                process.Kill();
+                                Console.WriteLine($"Ended process: {process.ProcessName}");
+                                endedProcesses.Add(process.ProcessName);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"Failed to end process: {process.ProcessName}, Error: {ex.Message}");
+                            }
+                        }
+                    }
+                }
+            }
+
+            return endedProcesses;
+        }
+    }
+}
