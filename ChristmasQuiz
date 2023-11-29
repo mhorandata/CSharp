@@ -1,0 +1,108 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class ChristmassQuiz
+{
+    static void Main()
+    {
+        List<string> questions = new List<string>
+        {
+            "Which popular Christmas beverage is also called “milk punch”?",
+            "What did the other reindeer not let Rudolph do because of his shiny red nose?",
+            "How many ghosts show up in A Christmas Carol?",
+            "Where was baby Jesus born?",
+            "The movie Miracle on 34th Street is based on a real-life department store. What is it?",
+            "What are the two other most popular names for Santa Claus?",
+            "Elvis isn’t going to have a white Christmas he’s going to have a…",
+            "What do people traditionally put on top of a Christmas tree?",
+            "In Home Alone, where are the McCallisters going on vacation when they leave Kevin behind?",
+            "In the classic Christmas movie, How The Grinch Stole Christmas, the Grinch was described with three words. What are they?",
+            "In which modern-day country was St. Nicholas born in?",
+            "In the movie It’s A Wonderful Life, what happened every time a bell rang?",
+            "What words follow “Silent Night” in the song?",
+            "Which Hollywood actor played six different roles in The Polar Express?",
+            "In Charles Dickens’ A Christmas Carol, what was the first name of Scrooge?",
+            "Which country did eggnog come from?",
+            "Which real-life person is Santa Claus based on?",
+            "What did Frosty The Snowman do when a magic hat was placed on his head?",
+            "What is Ralphie’s little brother’s name in the movie A Christmas Story?",
+            "Which Christmas song contains the lyric “Everyone dancing merrily in the new old-fashioned way?”"
+        };
+        List<string> answers = new List<string>
+        {
+            "Answer: Eggnog",
+            "Answer: Join in any reindeer games",
+            "Answer: Four",
+            "Answer: In Bethlehem",
+            "Answer: Macy’s",
+            "Answer: Kris Kringle and Saint Nick",
+            "Answer: Blue Christmas",
+            "Answer: An angel",
+            "Answer: Paris",
+            "Answer: Stink, stank, stunk",
+            "Answer: Turkey (originally Patara, a city in the ancient district of Lycia, in Asia Minor)",
+            "Answer: An angel got his wings",
+            "Answer: Holy night",
+            "Answer: Tom Hanks",
+            "Answer: Ebenezer",
+            "Answer: England",
+            "Answer: The Christian bishop St. Nicholas",
+            "Answer: He began to dance around",
+            "Answer: Randy",
+            "Answer: \"Rocking Around The Christmas Tree\""
+        };
+
+        // Create a list of tuples to pair questions and answers
+        List<Tuple<string, string>> quiz = new List<Tuple<string, string>>();
+        for (int i = 0; i < questions.Count; i++)
+        {
+            quiz.Add(Tuple.Create(questions[i], answers[i]));
+        }
+
+        // Shuffle the quiz list
+        ShuffleList(quiz);
+
+        // Ask the user each question and wait for their input
+        foreach (var pair in quiz)
+        {
+            Console.WriteLine(pair.Item1);
+            string userAnswer = GetUserInput();
+            Console.WriteLine("Your answer: " + userAnswer);
+
+            // Split the user's answer and the correct answer into words
+            var userWords = new HashSet<string>(userAnswer.Split(' '), StringComparer.OrdinalIgnoreCase);
+            var correctWords = new HashSet<string>(pair.Item2.Split(' '), StringComparer.OrdinalIgnoreCase);
+
+            // Compare the sets of words
+            if (userWords.SetEquals(correctWords))
+            {
+                Console.WriteLine("Correct!");
+            }
+            else
+            {
+                Console.WriteLine("Incorrect. The correct answer is: " + pair.Item2);
+            }
+        }
+    }
+
+    static void ShuffleList<T>(List<T> list)
+    {
+        Random random = new Random();
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = random.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
+
+    static string GetUserInput()
+    {
+        Console.Write("Your answer: ");
+        return Console.ReadLine();
+    }
+}
