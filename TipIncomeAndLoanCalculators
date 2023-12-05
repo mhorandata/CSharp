@@ -1,0 +1,104 @@
+
+
+//Tip Calculator:
+
+
+using Microsoft.VisualBasic;
+using System;
+using static System.Collections.Specialized.BitVector32;
+using System.Drawing;
+
+class TipCalculator
+{
+    static void Main()
+    {
+        Console.Write("Enter the bill amount: ");
+        double billAmount = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Enter the tip percentage: ");
+        double tipPercentage = Convert.ToDouble(Console.ReadLine());
+
+        double tipAmount = (billAmount * tipPercentage) / 100;
+        Console.WriteLine($"Tip amount: {tipAmount:C}");
+    //}
+//}
+
+
+//Annual Income Calculator:
+
+//using System;
+
+//class AnnualIncomeCalculator
+//{
+    //static void Main()
+    //{
+        Console.Write("Enter bi-weekly salary: ");
+        double biWeeklySalary = Convert.ToDouble(Console.ReadLine());
+
+        double annualIncome = biWeeklySalary * 26; // Assuming 26 pay periods in a year
+        Console.WriteLine($"Annual Income: {annualIncome:C}");
+    //}
+    //}
+
+
+
+//Loan Payoff Calculator:
+
+
+//using System;
+
+//class LoanPayoffCalculator
+//{
+    //static void Main()
+    //{
+        Console.Write("Enter loan amount: ");
+        double loanAmount = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Enter interest rate (annual): ");
+        double annualInterestRate = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Enter monthly payment: ");
+        double monthlyPayment = Convert.ToDouble(Console.ReadLine());
+
+        double monthlyInterestRate = annualInterestRate / 12 / 100;
+        double monthsToPayOff = Math.Ceiling(Math.Log(monthlyPayment / (monthlyPayment - monthlyInterestRate * loanAmount)) / Math.Log(1 + monthlyInterestRate));
+
+        Console.WriteLine($"Months to Pay Off: {monthsToPayOff}");
+    }
+}
+
+//Code explanation:
+
+//1. using System;: This line imports the System namespace, providing access to fundamental classes and base types.
+
+//2. class TipCalculator : Defines a class named TipCalculator encapsulating related functionality.
+
+//3. static void Main(): The entry point of the program.Execution starts here.
+
+//4. Console.Write("Enter the bill amount: ");: Displays a prompt to the user to enter the bill amount.
+
+//5. double billAmount = Convert.ToDouble(Console.ReadLine());: Reads the user's input, converts it to a double, and stores it in the billAmount variable.
+
+//6. Repeat steps 4-5 for the tip percentage, calculating the tip amount as double tipAmount = (billAmount * tipPercentage) / 100;.
+
+//7. Console.WriteLine($"Tip amount: {tipAmount:C}");: Displays the calculated tip amount in currency format.
+
+//8. The code then transitions to the Annual Income Calculator section.
+
+//9. Console.Write("Enter bi-weekly salary: ");: Prompts the user for bi-weekly salary.
+
+//10. double biWeeklySalary = Convert.ToDouble(Console.ReadLine());: Reads and converts user input, storing it in biWeeklySalary.
+
+//11. Calculates annual income assuming 26 pay periods: double annualIncome = biWeeklySalary * 26;.
+
+//12. Console.WriteLine($"Annual Income: {annualIncome:C}");: Displays the annual income in currency format.
+
+//13. The code proceeds to the Loan Payoff Calculator section.
+
+//14. Similar user prompts and input processing are performed to obtain loan amount, annual interest rate, and monthly payment.
+
+//15. double monthlyInterestRate = annualInterestRate / 12 / 100;: Calculates monthly interest rate.
+
+//16. Uses a formula to calculate months to pay off the loan and displays the result.
+
+//17. The program concludes.
