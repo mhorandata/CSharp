@@ -69,36 +69,45 @@ class TipCalculator
 
 //Code explanation:
 
-//1. using System;: This line imports the System namespace, providing access to fundamental classes and base types.
+//1. using System;: This line is crucial as it imports the System namespace, providing access to fundamental classes and base types essential for building C# applications.
+//It acts as the foundation for the entire program.
 
-//2. class TipCalculator : Defines a class named TipCalculator encapsulating related functionality.
+//2. class TipCalculator: This line defines a class named TipCalculator. In object-oriented programming, a class serves as a blueprint for creating objects.
+//Here, the TipCalculator class encapsulates related functionality for calculating tips and handling financial calculations.
 
-//3. static void Main(): The entry point of the program.Execution starts here.
+//3. static void Main(): The entry point of the program. In C#, the Main method is where the program starts executing. The 'static' keyword indicates that this method belongs to the class itself,
+//not to instances of the class.
 
-//4. Console.Write("Enter the bill amount: ");: Displays a prompt to the user to enter the bill amount.
+//4. Console.Write("Enter the bill amount: ");: This line prompts the user to enter the bill amount by displaying a message on the console.
+//The 'Console.Write' method outputs text without moving to the next line.
 
-//5. double billAmount = Convert.ToDouble(Console.ReadLine());: Reads the user's input, converts it to a double, and stores it in the billAmount variable.
+//5. double billAmount = Convert.ToDouble(Console.ReadLine());: Reads the user's input from the console, converts it to a double (floating-point number), and stores it in the 'billAmount' variable.
+//'Convert.ToDouble' ensures the entered value is interpreted as a numerical type.
 
-//6. Repeat steps 4-5 for the tip percentage, calculating the tip amount as double tipAmount = (billAmount * tipPercentage) / 100;.
+//6. Repeat steps 4-5 for the tip percentage, calculating the tip amount as double tipAmount = (billAmount * tipPercentage) / 100;:
+//This segment involves a similar process as steps 4-5 but for obtaining the tip percentage. The calculated tip amount is then stored in the 'tipAmount' variable.
 
-//7. Console.WriteLine($"Tip amount: {tipAmount:C}");: Displays the calculated tip amount in currency format.
+//7. Console.WriteLine($"Tip amount: {tipAmount:C}");: Displays the calculated tip amount in currency format. The '$' sign is used for string interpolation,
+//allowing variables to be directly embedded in the string. 'C' in {tipAmount:C} formats the value as currency.
 
-//8. The code then transitions to the Annual Income Calculator section.
+//8. The code then transitions to the Annual Income Calculator section. This signifies a modular approach where distinct sections of functionality are encapsulated within separate blocks,
+//enhancing code organization and readability.
 
-//9. Console.Write("Enter bi-weekly salary: ");: Prompts the user for bi-weekly salary.
+//9. Console.Write("Enter bi-weekly salary: ");: Similar to step 4, prompts the user to input their bi-weekly salary.
 
-//10. double biWeeklySalary = Convert.ToDouble(Console.ReadLine());: Reads and converts user input, storing it in biWeeklySalary.
+//10. double biWeeklySalary = Convert.ToDouble(Console.ReadLine());: Similar to step 5, reads and converts user input for bi-weekly salary, storing it in the 'biWeeklySalary' variable.
 
-//11. Calculates annual income assuming 26 pay periods: double annualIncome = biWeeklySalary * 26;.
+//11. Calculates annual income assuming 26 pay periods: double annualIncome = biWeeklySalary * 26;:
+//Computes the annual income by multiplying the bi-weekly salary by the assumed number of pay periods in a year (26).
 
-//12. Console.WriteLine($"Annual Income: {annualIncome:C}");: Displays the annual income in currency format.
+//12. Console.WriteLine($"Annual Income: {annualIncome:C}");: Displays the calculated annual income in currency format using string interpolation and the 'C' format specifier.
 
-//13. The code proceeds to the Loan Payoff Calculator section.
+//13. The code proceeds to the Loan Payoff Calculator section. Again, emphasizing a modular structure for better code organization.
 
-//14. Similar user prompts and input processing are performed to obtain loan amount, annual interest rate, and monthly payment.
+//14. Similar user prompts and input processing are performed to obtain loan amount, annual interest rate, and monthly payment. This ensures a consistent user experience and reduces redundancy in code.
 
-//15. double monthlyInterestRate = annualInterestRate / 12 / 100;: Calculates monthly interest rate.
+//15. double monthlyInterestRate = annualInterestRate / 12 / 100;: Calculates the monthly interest rate by dividing the annual interest rate by 12 (months) and converting it to a decimal.
 
-//16. Uses a formula to calculate months to pay off the loan and displays the result.
+//16. Uses a formula to calculate months to pay off the loan and displays the result. This involves complex mathematical calculations represented in a concise manner, enhancing the program's efficiency.
 
-//17. The program concludes.
+//17. The program concludes. This signifies the end of the execution, and the program terminates. The entire code structure follows a logical flow, from user input to calculations and final output.
