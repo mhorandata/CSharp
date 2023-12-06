@@ -1,0 +1,266 @@
+//Entity Framework, Delegates, Attributes, and Dependency Injection in C#
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
+
+public class DataStore<T>
+{
+    private T[] data = new T[5];
+    private int currentIndex = 0;
+
+    public void AddItem(T item)
+    {
+        if (!data.Contains(item))
+        {
+            if (currentIndex < data.Length)
+            {
+                data[currentIndex] = item;
+                currentIndex++;
+                Console.WriteLine($"{item} added to the data store.");
+            }
+            else
+            {
+                Console.WriteLine("Data store is full. Cannot add more items.");
+            }
+        }
+        else
+        {
+            Console.WriteLine($"{item} already exists in the data store.");
+        }
+    }
+
+    public void DisplayData()
+    {
+        if (currentIndex > 0)
+        {
+            Console.WriteLine("Data in the store:");
+            for (int i = 0; i < currentIndex; i++)
+            {
+                Console.WriteLine(data[i]);
+            }
+        }
+        else
+        {
+            Console.WriteLine("Data store is empty.");
+        }
+    }
+}
+
+public delegate void MyDelegate(string message);
+
+public class MyClass
+{
+    // A method that matches the delegate signature
+    public static void DisplayMessage(string message)
+    {
+        Console.WriteLine($"Message: {message}");
+    }
+
+    public void ExecuteDelegate()
+    {
+        MyDelegate myDelegate = DisplayMessage; // Handle null delegates
+
+        if (myDelegate != null)
+        {
+            // Invoke the delegate, which calls the associated method
+            myDelegate("Hello, Delegates!");
+        }
+    }
+}
+
+public class MyDbContext : DbContext
+{
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite("Data Source=mydatabase.db"); // Specify your database file name
+    }
+
+    public DbSet<MyEntity> MyEntities { get; set; }
+}
+
+public class MyEntity
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}
+
+[AttributeUsage(AttributeTargets.Method)]
+public class CustomAttribute : Attribute
+{
+    public string Description { get; }
+
+    public CustomAttribute(string description)
+    {
+        Description = description;
+    }
+}
+
+public class MyClassWithAttribute
+{
+    // Apply the custom attribute to a method
+    [CustomAttribute("This method performs a specific action.")]
+    public void MyMethod()
+    {
+        Console.WriteLine("Executing MyMethod");
+    }
+}
+
+// Service interface
+public interface IService
+{
+    string PerformAction();
+}
+
+// Service implementation
+public class MyService : IService
+{
+    public string PerformAction()
+    {
+        return "Action performed by MyService";
+    }
+}
+
+public interface ILambdaContext
+{
+    string FunctionName { get; }
+    string FunctionVersion { get; }
+
+    // Add other properties as needed
+}
+
+public class LambdaContext : ILambdaContext
+{
+    public string FunctionName { get; set; }
+    public string FunctionVersion { get; set; }
+
+    // Implement other properties as needed
+}
+
+public class LambdaFunction
+{
+    private readonly IService _service;
+
+    // Constructor injection for dependencies
+    public LambdaFunction(IService service)
+    {
+        _service = service;
+    }
+    // Lambda function entry point
+    public async Task FunctionHandler(ILambdaContext context)
+    {
+        // Use the injected service
+        var result = _service.PerformAction();
+
+        // Lambda function logic
+        // ...
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Creating an instance of DataStore with int as the data type
+        DataStore<int> intDataStore = new DataStore<int>();
+        intDataStore.AddItem(1);
+        intDataStore.AddItem(2);
+        intDataStore.DisplayData();
+
+        // Creating an instance of DataStore with string as the data type
+        DataStore<string> stringDataStore = new DataStore<string>();
+        stringDataStore.AddItem("Apple");
+        stringDataStore.AddItem("Banana");
+        stringDataStore.DisplayData();
+
+        MyClass myClass = new MyClass();
+        myClass.ExecuteDelegate();
+
+        using (var context = new MyDbContext())
+        {
+            // Ensure the database and table are created
+            context.Database.EnsureCreated();
+
+            // Analyzers will provide feedback on potential issues in queries
+            var entities = context.MyEntities.Where(e => e.Name.StartsWith("A")).ToList();
+        }
+
+        // Retrieve and display attribute information at runtime
+        var methodInfo = typeof(MyClassWithAttribute).GetMethod("MyMethod");
+        var customAttribute = (CustomAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(CustomAttribute));
+
+        Console.WriteLine("Method Description: " + customAttribute?.Description);
+    }
+}
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Code Explanations:
+
+//1. Namespace Imports:
+//using Microsoft.EntityFrameworkCore;
+//using Microsoft.Extensions.DependencyInjection;
+//using System;
+//using System.Linq;
+//using System.Threading.Tasks;
+//These lines import necessary namespaces for working with Entity Framework Core, Dependency Injection, and asynchronous programming.
+
+//2. Generic DataStore Class:
+//public class DataStore<T>
+//{
+//    // Fields to store data and track the current index
+//    private T[] data = new T[5];
+//    private int currentIndex = 0;
+
+//    // Method to add an item to the data store
+//    public void AddItem(T item) { /*... */ }
+
+//    // Method to display data in the store
+//    public void DisplayData() { /*... */ }
+//}
+//This class is a generic data store that can hold items of any type. It has methods to add items and display the current data.
+
+//3. Delegate and MyClass:
+//public delegate void MyDelegate(string message);
+
+//public class MyClass { /*... */ }
+//Here, a delegate MyDelegate is declared, and a class MyClass contains a method that matches the delegate's signature.
+
+//4. MyDbContext and Entity Class:
+//public class MyDbContext : DbContext { /*... */ }
+
+//public class MyEntity { /*... */ }
+//These classes are related to Entity Framework Core, defining a database context (MyDbContext) and an entity (MyEntity).
+
+//5. Custom Attribute and MyClassWithAttribute:
+//[AttributeUsage(AttributeTargets.Method)]
+//public class CustomAttribute : Attribute { /*... */ }
+
+//public class MyClassWithAttribute { /*... */ }
+//This involves a custom attribute and a class using that attribute on a method.
+
+//6. Service Interface and Implementation:
+//public interface IService { /*... */ }
+
+//public class MyService : IService { /*... */ }
+//These define a service interface and its implementation.
+
+//7. LambdaContext and LambdaFunction:
+//public interface ILambdaContext { /*... */ }
+
+//public class LambdaContext : ILambdaContext { /*... */ }
+
+//public class LambdaFunction { /*... */ }
+//These classes are related to AWS Lambda, defining a context interface, its implementation, and a function.
+
+//8. Main Program:
+//class Program { /*... */ }
+//Finally, in the Main method, instances of the previously defined classes are created and their methods are called.
+
+//Regarding NuGet packages, the code uses Entity Framework Core, so you would need to install the Microsoft.EntityFrameworkCore.Sqlite
+//package for SQLite database access. Additionally, for AWS Lambda, you might need AWS SDK packages.
+
+//For Entity Framework Core, you can install the necessary NuGet package using the following command:
+//dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+//Remember to execute this command in the same directory as your project file.
