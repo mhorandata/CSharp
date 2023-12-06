@@ -1,6 +1,23 @@
 //Entity Framework, Delegates, Attributes, and Dependency Injection in C#
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 using Microsoft.EntityFrameworkCore;
+using System;
+//Terms:
+//Entity Framework(EF): EF is an object-relational mapping (ORM) framework in C#.
+//It enables developers to interact with relational databases using .NET objects, abstracting the underlying database structure.
+//EF supports various data access strategies and simplifies database operations, enhancing code readability and maintainability[1][4].
+
+//Delegates: Delegates are type-safe function pointers that allow methods to be passed as parameters. In C#, delegates facilitate the implementation of callbacks,
+//events, and dynamic method invocation. They provide a way to achieve flexibility and extensibility in code by enabling methods to be treated as first-class citizens[2][6].
+
+//Attributes: Attributes are metadata that can be added to code elements like classes, methods, or properties. In C#, attributes convey additional information about the code.
+//Developers can define custom attributes to add metadata and use reflection to retrieve this information at runtime[5].
+
+//Dependency Injection (DI): DI is a design pattern aiming to manage object dependencies and promote loose coupling. In C#,
+//DI involves injecting dependencies into a class rather than creating them internally. It enhances testability, maintainability,
+//and scalability by providing a way to replace or modify dependencies easily[3][6].
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.ComponentModel;
