@@ -1,0 +1,69 @@
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Threading;
+using Excel = Microsoft.Office.Interop.Excel;
+
+class Program
+{
+    static void Main()
+    {
+        string sourceFilePath = @"T:\DV\MY2022\Matthew\HPMS\HPMSAssignment.xlsm";
+        string tempCopyFolderPath = @"T:\DV\MY2022\Matthew\HPMS\Temp"; // Change this to your desired temporary location
+
+        try
+        {
+            // Create a unique temporary copy file name
+            string timestamp = DateTime.Now.ToString("ddMMyyyy_HHmmss");
+            string tempCopyFilePath = Path.Combine(tempCopyFolderPath, $"TempCopy_{timestamp}.xlsm");
+
+            // Initialize Excel application
+            Excel.Application excelApp = new Excel.Application();
+            excelApp.Visible = true;
+
+            // Close the Excel application to release any locks
+            excelApp.Quit();
+            Marshal.ReleaseComObject(excelApp);
+
+            // Reopen the Excel application
+            excelApp = new Excel.Application();
+            excelApp.Visible = true;
+
+            // Create a temporary copy of the Excel document
+            File.Copy(sourceFilePath, tempCopyFilePath, true);
+
+            // Open the temporary copy of the Excel document
+            Excel.Workbook workbook = excelApp.Workbooks.Open(tempCopyFilePath);
+
+            // Maximize the Excel application window
+            excelApp.WindowState = Excel.XlWindowState.xlMaximized;
+
+            // Wait for user input before exiting (optional)
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+
+            // Close the temporary copy of the Excel document
+            workbook.Close(false);
+
+            // Clean up the Excel application object
+            Marshal.ReleaseComObject(workbook);
+            Marshal.ReleaseComObject(excelApp);
+            workbook = null;
+            excelApp = null;
+
+            // Close the console window
+            Environment.Exit(0);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error opening or accessing the Excel document: {ex.Message}");
+            // Close the console window with an error code
+            Environment.Exit(1);
+        }
+        finally
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+        }
+    }
+}
