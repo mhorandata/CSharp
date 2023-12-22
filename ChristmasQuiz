@@ -30,28 +30,29 @@ class ChristmassQuiz
             "Which Christmas song contains the lyric “Everyone dancing merrily in the new old-fashioned way?”"
         };
         List<string> answers = new List<string>
-        {
-            "Answer: Eggnog",
-            "Answer: Join in any reindeer games",
-            "Answer: Four",
-            "Answer: In Bethlehem",
-            "Answer: Macy’s",
-            "Answer: Kris Kringle and Saint Nick",
-            "Answer: Blue Christmas",
-            "Answer: An angel",
-            "Answer: Paris",
-            "Answer: Stink, stank, stunk",
-            "Answer: Turkey (originally Patara, a city in the ancient district of Lycia, in Asia Minor)",
-            "Answer: An angel got his wings",
-            "Answer: Holy night",
-            "Answer: Tom Hanks",
-            "Answer: Ebenezer",
-            "Answer: England",
-            "Answer: The Christian bishop St. Nicholas",
-            "Answer: He began to dance around",
-            "Answer: Randy",
-            "Answer: \"Rocking Around The Christmas Tree\""
-        };
+{
+    "Eggnog",
+    "Join in any reindeer games",
+    "Four",
+    "In Bethlehem",
+    "Macy’s",
+    "Kris Kringle and Saint Nick",
+    "Blue Christmas",
+    "An angel",
+    "Paris",
+    "Stink, stank, stunk",
+    "Turkey (originally Patara, a city in the ancient district of Lycia, in Asia Minor)",
+    "An angel got his wings",
+    "Holy night",
+    "Tom Hanks",
+    "Ebenezer",
+    "England",
+    "The Christian bishop St. Nicholas",
+    "He began to dance around",
+    "Randy",
+    "\"Rocking Around The Christmas Tree\""
+};
+
 
         // Create a list of tuples to pair questions and answers
         List<Tuple<string, string>> quiz = new List<Tuple<string, string>>();
