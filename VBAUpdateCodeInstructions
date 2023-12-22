@@ -1,0 +1,47 @@
+using System;
+
+namespace Add64bitcode
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            while (true)
+            {
+                Console.WriteLine("Please follow these steps:");
+                Console.WriteLine("1) Make a copy/backup of the tool before you make any updates.");
+                Console.WriteLine("2) Open development mode by holding Shift down when opening the tool.");
+                Console.WriteLine("3) In the Access list, choose Modules and go into the Design view of the first Module.");
+                Console.WriteLine("4) Use Ctrl+F to search for the word 'Declare.' If no results are found, move on to the next Module.");
+                Console.WriteLine("5) Enter the name of the VBA function below:");
+
+                Console.Write("Function Name: ");
+                string functionName = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(functionName))
+                {
+                    Console.WriteLine("Function name cannot be empty.");
+                }
+                else
+                {
+                    string codeSnippet = $"#If Win64 Then\n" +
+                                         $"Private Declare PtrSafe Function {functionName}\n" +
+                                         $"#Else\n" +
+                                         $"Private Declare Function {functionName}\n" +
+                                         $"#End If";
+
+                    Console.WriteLine("\nUpdated Code Snippet:");
+                    Console.WriteLine(codeSnippet);
+                }
+
+                Console.WriteLine("\nPress any key to enter a new function name, or press Esc to exit...");
+
+                var key = Console.ReadKey().Key;
+                if (key == ConsoleKey.Escape)
+                    break;
+
+                Console.Clear(); // Clear the console for the next iteration.
+            }
+        }
+    }
+}
