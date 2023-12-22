@@ -16,11 +16,11 @@ namespace CSOrganizer
         {
             InitializeComponent();
 
-            Button1 = CreateButton("TDriveCSFolder", 50, 50);
-            Button2 = CreateButton("XDriveCSFolder", 50, 100);
-            Button3 = CreateButton("Add 64-Bit Code", 50, 150);
-            Button4 = CreateButton("InstallerExcel", 50, 200);
-            Button5 = CreateButton("GoalTracking", 50, 250);
+            Button1 = CreateButton("Button1", 50, 50);
+            Button2 = CreateButton("Button2", 50, 100);
+            Button3 = CreateButton("Button3", 50, 150);
+            Button4 = CreateButton("Button4", 50, 200);
+            Button5 = CreateButton("Button5", 50, 250);
         }
 
         private Button CreateButton(string buttonText, int x, int y)
