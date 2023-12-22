@@ -1,0 +1,76 @@
+using System;
+using System.Diagnostics;
+using System.Windows.Forms;
+
+namespace CSOrganizer
+{
+    public partial class Form1 : Form
+    {
+        private Button Button1;
+        private Button Button2;
+        private Button Button3;
+        private Button Button4;
+        private Button Button5;
+
+        public Form1()
+        {
+            InitializeComponent();
+
+            Button1 = CreateButton("TDriveCSFolder", 50, 50);
+            Button2 = CreateButton("XDriveCSFolder", 50, 100);
+            Button3 = CreateButton("Add 64-Bit Code", 50, 150);
+            Button4 = CreateButton("InstallerExcel", 50, 200);
+            Button5 = CreateButton("GoalTracking", 50, 250);
+        }
+
+        private Button CreateButton(string buttonText, int x, int y)
+        {
+            var button = new Button();
+            button.Location = new System.Drawing.Point(x, y);
+            button.Size = new System.Drawing.Size(150, 30);
+            button.Text = buttonText;
+            button.Click += new EventHandler(Button_Click);
+            Controls.Add(button);
+            return button;
+        }
+
+        private void Button_Click(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            string folderPath = string.Empty;
+
+            switch (button.Text)
+            {
+                case "Button1":
+                    folderPath = @"C:\user\pathToButton1";
+                    break;
+                case "Button2":
+                    folderPath = @"C:\user\pathToButton2";
+                    break;
+                case "Button3":
+                    folderPath = @"C:\user\pathToButton3";
+                    break;
+                case "Button4":
+                    folderPath = @"C:\user\pathToButton4";
+                    break;
+                case "Button5":
+                    folderPath = @"C:\user\pathToButton5";
+                    break;
+            }
+
+            OpenFolder(folderPath);
+        }
+
+        private void OpenFolder(string folderPath)
+        {
+            if (System.IO.Directory.Exists(folderPath))
+            {
+                Process.Start("explorer.exe", folderPath);
+            }
+            else
+            {
+                MessageBox.Show("The folder does not exist.");
+            }
+        }
+    }
+}
